@@ -1,0 +1,16 @@
+Write a faceless YouTube Tech & AI News script from this fact-check:
+
+{research}
+
+Requirements:
+
+- Use clear, conversational language.
+- Start with a strong hook in the first 15 seconds.
+- Explain technical ideas simply.
+- Focus on why the story matters.
+- Never invent quotes or facts.
+- Never present uncertain information as confirmed.
+- Aim for 4–6 minutes when enough information is available.
+- Add [VISUAL] cues where useful.
+- End with a concise takeaway.
+- Include a natural call to subscribe.
