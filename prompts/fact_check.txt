@@ -1,0 +1,14 @@
+Fact-check this research brief:
+
+{research}
+
+Return:
+
+- Confirmed facts
+- Claims needing verification
+- Potentially misleading wording
+- Missing context
+- Safe wording for uncertain claims
+
+Do not invent evidence.
+If evidence is unavailable, say so.
