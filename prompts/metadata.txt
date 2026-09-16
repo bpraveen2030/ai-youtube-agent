@@ -1,0 +1,17 @@
+Create YouTube metadata from this research and script.
+
+RESEARCH:
+{research}
+
+SCRIPT:
+{script}
+
+Return:
+
+1. Five accurate title options
+2. One SEO-friendly description
+3. 10–15 relevant tags
+4. Three thumbnail concepts
+5. One one-sentence hook
+
+Do not use clickbait claims unsupported by the script.
