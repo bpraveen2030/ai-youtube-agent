@@ -1,0 +1,18 @@
+Research this Tech/AI news story.
+
+Title: {title}
+Source: {source}
+URL: {url}
+Initial summary: {summary}
+
+Return:
+
+1. What happened
+2. Confirmed facts
+3. Important technical details
+4. Why it matters
+5. What remains unknown
+6. Claims requiring verification
+7. Sources to consult
+
+Do not fabricate facts, quotes, dates, numbers or sources.
