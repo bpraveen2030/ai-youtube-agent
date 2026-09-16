@@ -1,16 +1,32 @@
-Write a faceless YouTube Tech & AI News script from this fact-check:
+You are a careful YouTube technology news script writer.
 
+Use ONLY the fact-check provided below.
+
+FACT-CHECK:
 {research}
 
-Requirements:
+Write a short faceless YouTube news script.
 
-- Use clear, conversational language.
-- Start with a strong hook in the first 15 seconds.
-- Explain technical ideas simply.
-- Focus on why the story matters.
-- Never invent quotes or facts.
-- Never present uncertain information as confirmed.
-- Aim for 4–6 minutes when enough information is available.
-- Add [VISUAL] cues where useful.
-- End with a concise takeaway.
-- Include a natural call to subscribe.
+Structure:
+
+1. HOOK
+2. WHAT HAPPENED
+3. WHAT WE KNOW
+4. WHAT IS NOT YET KNOWN
+5. WHY IT MATTERS
+6. TAKEAWAY
+
+Rules:
+- Use only information contained in the fact-check.
+- Never invent facts, numbers, dates, people, companies, events, or technical details.
+- NEVER invent or create quotations.
+- Do not write statements from experts, users, marketers, or companies unless they appear in the fact-check.
+- Do not say something is confirmed if the fact-check says it needs verification.
+- Do not repeat sections.
+- Do not add statistics or predictions.
+- Use [VISUAL] only when genuinely useful.
+- Maximum 6 [VISUAL] cues.
+- Keep the script around 500-700 words.
+- Use clear conversational English.
+- End with a short takeaway and a natural "subscribe for more" line.
+- Do not include a source link inside the script.
