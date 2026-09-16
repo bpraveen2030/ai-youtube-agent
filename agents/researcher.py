@@ -1,4 +1,4 @@
- from llama_cpp import Llama
+from llama_cpp import Llama
 
 from prompts import load_prompt
 
