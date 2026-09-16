@@ -3,9 +3,6 @@ import os
 
 from agents.news_scout import scout_news
 from agents.researcher import research_story
-from agents.fact_checker import fact_check
-from agents.writer import write_script
-from agents.metadata import generate_metadata
 from tools.article_reader import fetch_article
 from tools.database import init_db, save_stories
 from config import MIN_STORY_SCORE
@@ -59,104 +56,48 @@ def main():
         )
         print(f"   {story['url']}")
 
-    if args.story:
-        index = args.story - 1
+    if not args.story:
+        return
 
-        if not 0 <= index < len(stories):
-            raise SystemExit("Invalid --story number.")
+    index = args.story - 1
 
-        story = stories[index]
+    if not 0 <= index < len(stories):
+        raise SystemExit("Invalid --story number.")
 
-        print("\nFetching original article...")
+    story = stories[index]
 
-        article = fetch_article(story["url"])
+    print("\nFetching original article...")
 
-        if article.startswith("ARTICLE_BLOCKED"):
-            print("\nArticle could not be accessed automatically.")
-            print("Using RSS summary instead.")
-            article = story["summary"]
+    article = fetch_article(story["url"])
 
-        elif article.startswith("ARTICLE_ERROR"):
-            print("\nArticle retrieval failed.")
-            print("Using RSS summary instead.")
-            article = story["summary"]
+    if article.startswith("ARTICLE_"):
+        print("Using RSS summary.")
+        article = story["summary"]
+    else:
+        print("Article text retrieved.")
 
-        elif article.startswith("ARTICLE_EMPTY"):
-            print("\nNo article text was extracted.")
-            print("Using RSS summary instead.")
-            article = story["summary"]
+    story_for_research = {
+        **story,
+        "summary": article,
+    }
 
-        story_for_research = {
-            **story,
-            "summary": article,
-        }
+    print("Generating research with local AI...")
 
-        print("Researching with local AI...")
+    research = research_story(story_for_research)
 
-        research = research_story(
-            story_for_research
-        )
+    os.makedirs("output", exist_ok=True)
 
-        print("Fact-checking...")
+    with open(
+        "output/latest.md",
+        "w",
+        encoding="utf-8"
+    ) as f:
+        f.write(f"# {story['title']}\n\n")
+        f.write(f"## Source\n{story['url']}\n\n")
+        f.write(f"## Research\n{research}\n")
 
-        checked = fact_check(research)
-
-        print("Writing script...")
-
-        script = write_script(checked)
-
-        print("Generating metadata...")
-
-        metadata = generate_metadata(
-            checked,
-            script
-        )
-
-        os.makedirs("output", exist_ok=True)
-
-        with open(
-            "output/latest.md",
-            "w",
-            encoding="utf-8"
-        ) as f:
-
-            f.write(
-                f"# {story['title']}\n\n"
-            )
-
-            f.write(
-                "## Source\n"
-                f"{story['url']}\n\n"
-            )
-
-            f.write(
-                "## Research\n"
-                f"{research}\n\n"
-            )
-
-            f.write(
-                "## Fact-check\n"
-                f"{checked}\n\n"
-            )
-
-            f.write(
-                "## Script\n"
-                f"{script}\n\n"
-            )
-
-            f.write(
-                "## Metadata\n"
-                f"{metadata}\n"
-            )
-
-        print(
-            "\nSaved draft: output/latest.md"
-        )
-
-        print(
-            "Human approval is required "
-            "before publishing."
-        )
+    print("\nSaved: output/latest.md")
+    print("Human approval is required before publishing.")
 
 
 if __name__ == "__main__":
