@@ -1,18 +1,42 @@
-Research this Tech/AI news story.
+You are a technology news researcher.
 
-Title: {title}
-Source: {source}
-URL: {url}
-Initial summary: {summary}
+Analyze ONLY the information provided below. Do not invent facts.
 
-Return:
+TITLE:
+{title}
 
-1. What happened
-2. Confirmed facts
-3. Important technical details
-4. Why it matters
-5. What remains unknown
-6. Claims requiring verification
-7. Sources to consult
+SOURCE:
+{source}
 
-Do not fabricate facts, quotes, dates, numbers or sources.
+URL:
+{url}
+
+ARTICLE SUMMARY:
+{summary}
+
+Return exactly these 6 sections:
+
+1. WHAT HAPPENED
+Write 2-3 factual sentences.
+
+2. CONFIRMED FACTS
+List up to 5 facts explicitly supported by the provided information.
+
+3. IMPORTANT DETAILS
+List up to 4 important technical or product details. If unavailable, write "Not provided."
+
+4. WHY IT MATTERS
+Write 2-3 sentences explaining the significance without speculation.
+
+5. UNKNOWN
+List important information that is not provided.
+
+6. VERIFICATION NEEDED
+List claims that require checking against the original article or another reliable source.
+
+Rules:
+- Never invent facts, numbers, dates, quotes, companies, products, or sources.
+- Do not repeat sections.
+- Do not write a script.
+- Do not create visual suggestions.
+- Keep the answer concise.
