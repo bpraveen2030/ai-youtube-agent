@@ -4,40 +4,55 @@ from bs4 import BeautifulSoup
 
 def fetch_article(url):
     headers = {
-        "User-Agent": "Mozilla/5.0"
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/131.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml",
     }
 
-    response = requests.get(
-        url,
-        headers=headers,
-        timeout=20
-    )
+    try:
+        response = requests.get(
+            url,
+            headers=headers,
+            timeout=20
+        )
 
-    response.raise_for_status()
+        if response.status_code == 403:
+            return "ARTICLE_BLOCKED: The website refused automated access."
 
-    soup = BeautifulSoup(
-        response.text,
-        "html.parser"
-    )
+        response.raise_for_status()
 
-    for tag in soup([
-        "script",
-        "style",
-        "nav",
-        "footer",
-        "header",
-        "aside"
-    ]):
-        tag.decompose()
+        soup = BeautifulSoup(
+            response.text,
+            "html.parser"
+        )
 
-    paragraphs = []
+        for tag in soup([
+            "script",
+            "style",
+            "nav",
+            "footer",
+            "header",
+            "aside"
+        ]):
+            tag.decompose()
 
-    for p in soup.find_all("p"):
-        text = p.get_text(" ", strip=True)
+        paragraphs = []
 
-        if len(text) >= 40:
-            paragraphs.append(text)
+        for p in soup.find_all("p"):
+            text = p.get_text(" ", strip=True)
 
-    article = "\n\n".join(paragraphs)
+            if len(text) >= 40:
+                paragraphs.append(text)
 
-    return article[:12000]
+        article = "\n\n".join(paragraphs)
+
+        if not article:
+            return "ARTICLE_EMPTY: No article text could be extracted."
+
+        return article[:12000]
+
+    except requests.RequestException as exc:
+        return f"ARTICLE_ERROR: {exc}"
